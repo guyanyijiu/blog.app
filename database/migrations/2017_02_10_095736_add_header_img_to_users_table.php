@@ -14,7 +14,7 @@ class AddHeaderImgToUsersTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('header_img', 255)->after('email')->comment('用户头像URL');
+            $table->string('header_img', 255)->after('email')->comment('用户头像URL')->nullable();
         });
     }
 
