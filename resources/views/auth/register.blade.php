@@ -5,6 +5,7 @@
     <!-- iCheck -->
     <link rel="stylesheet" href="/AdminLTE/plugins/iCheck/square/blue.css">
 @endsection
+
 @section('content')
     <div class="register-box">
         <div class="register-logo">
@@ -28,9 +29,9 @@
                 <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
                     <input type="email" name="email" class="form-control" placeholder="Email" value="{{ old('email') }}" required>
                     <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-                    @if($errors->has('name'))
+                    @if($errors->has('email'))
                         <span class="help-block">
-                            {{ $errors->first('name') }}
+                            {{ $errors->first('email') }}
                         </span>
                     @endif
                 </div>
