@@ -11,4 +11,8 @@ php artisan migrate
 php artisan make:seeder UsersTableSeeder
 php artisan db:seed
 ```
+## 3. 使用 elixir
+```shell
+gulp
+```
 
