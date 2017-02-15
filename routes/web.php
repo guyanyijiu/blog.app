@@ -11,6 +11,13 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+ Route::get('/', function () {
+     return view('welcome');
+ });
+
+Route::get('/about', 'SitesController@about');
+Route::resource('posts', 'PostController', ['only' => ['show', 'create', 'store', 'update', 'edit']]);
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index');
