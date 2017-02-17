@@ -15,8 +15,7 @@
      return view('welcome');
  });
 
-Route::get('/about', 'SitesController@about');
-Route::resource('posts', 'PostController', ['only' => ['show', 'create', 'store', 'update', 'edit']]);
+//Route::resource('posts', 'PostController', ['only' => ['show', 'create', 'store', 'update', 'edit']]);
 
 Auth::routes();
 
