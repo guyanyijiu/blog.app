@@ -26,7 +26,18 @@
                         <td>{{ $role->description }}</td>
                         <td>
                             <a  href="{{ url('/admin/role/'. $role->id .'/edit') }}" class="btn btn-primary">编辑</a>
-                            <a class="btn btn-danger">删除</a>
+                            <form action="{{ url('/admin/role/'. $role->id) }}" method="post" style="display: inline;">
+                                {{ method_field('DELETE') }}
+                                {{ csrf_field() }}
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('确定删除?')" data-toggle="modal" data-target=".bs-example-modal-lg">删除</button>
+                                {{--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">--}}
+                                    {{--<div class="modal-dialog modal-lg" role="document">--}}
+                                        {{--<div class="modal-content">--}}
+                                            {{--...--}}
+                                        {{--</div>--}}
+                                    {{--</div>--}}
+                                {{--</div>--}}
+                            </form>
                         </td>
                     </tr>
                     @endforeach
