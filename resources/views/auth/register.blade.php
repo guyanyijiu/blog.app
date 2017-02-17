@@ -1,10 +1,6 @@
 @extends('layouts.auth.app')
 @section('title', '注册')
 @section('body', 'register-page')
-@section('css')
-    <!-- iCheck -->
-    <link rel="stylesheet" href="/AdminLTE/plugins/iCheck/square/blue.css">
-@endsection
 
 @section('content')
     <div class="register-box">
@@ -79,16 +75,3 @@
     <!-- /.register-box -->
 @endsection
 
-@section('js')
-    <!-- iCheck -->
-    <script src="/AdminLTE/plugins/iCheck/icheck.min.js"></script>
-    <script>
-        $(function () {
-            $('input').iCheck({
-                checkboxClass: 'icheckbox_square-blue',
-                radioClass: 'iradio_square-blue',
-                increaseArea: '20%' // optional
-            });
-        });
-    </script>
-@endsection
