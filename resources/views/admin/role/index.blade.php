@@ -26,35 +26,56 @@
                         <td>{{ $role->description }}</td>
                         <td>
                             <a  href="{{ url('/admin/role/'. $role->id .'/edit') }}" class="btn btn-primary">编辑</a>
-                            <form action="{{ url('/admin/role/'. $role->id) }}" method="post" style="display: inline;">
-                                {{ method_field('DELETE') }}
-                                {{ csrf_field() }}
-                                <button type="submit" class="btn btn-danger" onclick="return confirm('确定删除?')" data-toggle="modal" data-target=".bs-example-modal-lg">删除</button>
-                                {{--<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">--}}
-                                    {{--<div class="modal-dialog modal-lg" role="document">--}}
-                                        {{--<div class="modal-content">--}}
-                                            {{--...--}}
-                                        {{--</div>--}}
-                                    {{--</div>--}}
-                                {{--</div>--}}
-                            </form>
+                            <button type="button" class="btn btn-danger"  data-toggle="modal" data-target="#modal-delete" data-role_id="{{ $role->id }}">删除</button>
                         </td>
                     </tr>
                     @endforeach
                     </tbody>
                 </table>
             </div>
+            {{-- 模态框 --}}
+            <div class="modal fade" id="modal-delete" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="exampleModalLabel">提示</h4>
+                        </div>
+                        <div class="modal-body">
+                            <p class="lead">
+                                <i class="fa fa-question-circle fa-lg"></i>
+                                确认要删除这个角色吗?
+                            </p>
+                        </div>
+                        <div class="modal-footer">
+                            <form class="deleteForm" method="POST" action="">
+                                {{ csrf_field() }}
+                                {{ method_field('DELETE') }}
+                                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                                <button type="submit" class="btn btn-danger" >
+                                    <i class="fa fa-times-circle"></i> 确认
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {{-- 模态框 --}}
             <!-- /.box-body -->
             <div class="box-footer clearfix">
-                {{--<ul class="pagination pagination-sm no-margin pull-right">--}}
-                    {{--<li><a href="#">«</a></li>--}}
-                    {{--<li><a href="#">1</a></li>--}}
-                    {{--<li><a href="#">2</a></li>--}}
-                    {{--<li><a href="#">3</a></li>--}}
-                    {{--<li><a href="#">»</a></li>--}}
-                {{--</ul>--}}
                 {{ $roles->links() }}
             </div>
         </div>
     </section>
+@endsection
+
+@section('js')
+    <script>
+        $('#modal-delete').on('show.bs.modal', function(e){
+            var button = $(e.relatedTarget);
+            var role_id = button.data('role_id');
+            var form = $(this).find('.deleteForm');
+            form.attr('action', '/admin/role/' + role_id);
+        });
+    </script>
 @endsection
