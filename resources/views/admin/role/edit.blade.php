@@ -1,18 +1,25 @@
 @extends('layouts.admin.app')
-@section('title', '添加角色')
+@section('title', '编辑角色')
 @section('content')
 
     <section class="content">
+        @if (session('status'))
+            <div class="alert alert-danger alert-dismissible" role="alert">
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                {{ session('status') }}
+            </div>
+        @endif
         <div class="box box-primary">
             <div class="box-header with-border">
-                <h3 class="box-title">添加角色</h3>
+                <h3 class="box-title">编辑角色</h3>
             </div>
-            <form action="{{ url('/admin/role') }}" method="post">
+            <form action="{{ url('/admin/role/'.$role->id) }}" method="post">
                 {{ csrf_field() }}
+                {{ method_field('PUT') }}
                 <div class="box-body">
                     <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                         <label for="roleName">角色名</label>
-                        <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="roleName" required autofocus>
+                        <input type="text" name="name" value="{{ old('name') ? old('name') : $role->name }}" class="form-control" id="roleName" required autofocus>
                         @if($errors->has('name'))
                             <span class="help-block">
                                 {{ $errors->first('name') }}
@@ -21,7 +28,7 @@
                     </div>
                     <div class="form-group {{ $errors->has('display_name') ? ' has-error' : '' }}">
                         <label for="displayName">显示名</label>
-                        <input type="text" name="display_name" value="{{ old('display_name') }}" class="form-control" id="displayName">
+                        <input type="text" name="display_name" value="{{ old('display_name') ? old('display_name') : $role->display_name }}" class="form-control" id="displayName">
                         @if($errors->has('display_name'))
                             <span class="help-block">
                                 {{ $errors->first('display_name') }}
@@ -30,7 +37,7 @@
                     </div>
                     <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
                         <label for="description">描述</label>
-                        <input type="text" name="description" value="{{ old('description') }}" class="form-control" id="description">
+                        <input type="text" name="description" value="{{ old('description') ? old('description') : $role->description }}" class="form-control" id="description">
                         @if($errors->has('description'))
                             <span class="help-block">
                                 {{ $errors->first('description') }}
@@ -38,9 +45,9 @@
                         @endif
                     </div>
                     {{--<div class="checkbox">--}}
-                        {{--<label>--}}
-                            {{--<input type="checkbox"> Check me out--}}
-                        {{--</label>--}}
+                    {{--<label>--}}
+                    {{--<input type="checkbox"> Check me out--}}
+                    {{--</label>--}}
                     {{--</div>--}}
                 </div>
                 <!-- /.box-body -->
