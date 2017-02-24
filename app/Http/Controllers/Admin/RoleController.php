@@ -112,8 +112,8 @@ class RoleController extends Controller
      */
     public function destroy($id)
     {
-//        $role = Role::find($id);
-        $role = false;
+        $role = Role::find($id);
+//        $role = false;
         if($role){
             $role->delete();
             return back()->with('status', '删除成功');
