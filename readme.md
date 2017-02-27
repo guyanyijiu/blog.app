@@ -16,3 +16,17 @@ php artisan db:seed
 gulp
 ```
 
+## 4. 增加自定义全局助手函数
+```shell
+    增加文件
+    app/Helpers/helpers.php
+    
+    修改 composer.json,在autoload增加
+    "files": [
+        "app/Helpers/helpers.php"
+    ],
+    
+    执行
+    composer dump-auto
+```
+
