@@ -27,6 +27,7 @@ class UpdateRolePost extends FormRequest
             'name' => 'bail|required|unique:roles,name,'.$this->route()->getParameter('role').'|max:255',
             'display_name' => 'bail|required|max:255',
             'description' => 'bail|required|max:255',
+            'permissions' => 'array',
         ];
     }
 }

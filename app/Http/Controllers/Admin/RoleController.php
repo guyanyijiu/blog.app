@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\StoreRolePost;
 use App\Http\Requests\UpdateRolePost;
+use App\models\Permission;
 use App\models\Role;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class RoleController extends Controller
 {
@@ -15,9 +17,8 @@ class RoleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request)
+    public function index()
     {
-        $page = $request->input('page', 1);
         $roles = Role::paginate(2);
         return view('admin.role.index', ['roles' => $roles]);
     }
@@ -73,7 +74,11 @@ class RoleController extends Controller
     {
         $role = Role::find($id);
         if($role){
-            return view('admin.role.edit', ['role' => $role]);
+            $permissions = Permission::all();
+            $permissions = $permissions->toArray();
+            $permissions = getTree($permissions);
+            $has = DB::table('permission_role')->where('role_id', 1)->pluck('permission_id')->toArray();
+            return view('admin.role.edit', ['role' => $role, 'permissions' => $permissions, 'has' => $has]);
         }else{
             return back()->with('status', '未找到相关记录');
         }
@@ -95,6 +100,7 @@ class RoleController extends Controller
             $role->display_name = $request->get('display_name');
             $role->description = $request->get('description');
             if($role->save()){
+                $role->perms()->sync($request->input('permissions'));
                 return back()->with('status', '更新成功');
             }else{
                 return back()->with('status', '更新失败');

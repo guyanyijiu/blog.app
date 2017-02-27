@@ -44,11 +44,23 @@
                             </span>
                         @endif
                     </div>
-                    {{--<div class="checkbox">--}}
-                    {{--<label>--}}
-                    {{--<input type="checkbox"> Check me out--}}
-                    {{--</label>--}}
-                    {{--</div>--}}
+
+                    <div class="form-group">
+                        <label>分配权限</label>
+                        @foreach($permissions as $permission)
+                        <div class="checkbox">
+                            <label class="checkbox-inline">
+                                <input  type="checkbox"> {{ $permission['display_name'] }} :
+                            </label>
+                            @foreach($permission['child'] as $child)
+                            <label class="checkbox-inline">
+                                <input type="checkbox" name="permissions[]" value="{{ $child['id'] }}" {{ in_array($child['id'], $has) ? 'checked' : '' }}> {{ $child['display_name'] }}
+                            </label>
+                            @endforeach
+                        </div>
+                        @endforeach
+                    </div>
+
                 </div>
                 <!-- /.box-body -->
 
