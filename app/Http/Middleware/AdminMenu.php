@@ -33,7 +33,7 @@ class AdminMenu
         $menu = [];
         $permissions = Permission::where('pid', 0)->orWhere('name', 'like', '%.index')->get()->toArray();
         foreach($permissions as $permission){
-            if($permission['pid'] == 0 || Auth::user()->can($permission['name'])){
+            if($permission['pid'] == 0 || Auth::user()->id == 1 || Auth::user()->can($permission['name'])){
                 $menu[] = $permission;
                 if($currentRouteName == $permission['name']){
                     $current['id'] = $permission['id'];

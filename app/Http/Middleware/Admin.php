@@ -16,10 +16,13 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        $routeName = Route::currentRouteName();
-        if($routeName != 'admin.index' && ! $request->user()->can($routeName)){
-            return redirect('/admin')->withErrors('无权限');
+        if($request->user()->id != 1){
+            $routeName = Route::currentRouteName();
+            if($routeName != 'admin.index' && ! $request->user()->can($routeName)){
+                return redirect('/admin')->withErrors('无访问权限');
+            }
         }
+
         return $next($request);
     }
 }
