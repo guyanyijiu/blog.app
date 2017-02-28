@@ -27,13 +27,15 @@ class AdminMenu
 
         $current = ['id' => null, 'pid' => null];
         $currentRouteName = Route::currentRouteName();
+        $currentRouteName = explode('.', $currentRouteName);
+        $currentRouteName = $currentRouteName[0] . '.index';
 
         $menu = [];
         $permissions = Permission::where('pid', 0)->orWhere('name', 'like', '%.index')->get()->toArray();
         foreach($permissions as $permission){
             if($permission['pid'] == 0 || Auth::user()->can($permission['name'])){
                 $menu[] = $permission;
-                if('admin.'.$currentRouteName == $permission['name']){
+                if($currentRouteName == $permission['name']){
                     $current['id'] = $permission['id'];
                     $current['pid'] = $permission['pid'];
                 }

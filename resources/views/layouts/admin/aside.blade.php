@@ -36,7 +36,7 @@
                 </a>
                 <ul class="treeview-menu">
                     @foreach($menu['child'] as $childMenu)
-                    <li @if($menuData['current']['id'] == $childMenu['id']) class="active" @endif><a href="{{ url(str_replace('.', '/', $childMenu['name'])) }}"><i class="fa fa-circle-o"></i> {{ $childMenu['display_name'] }} </a></li>
+                    <li @if($menuData['current']['id'] == $childMenu['id']) class="active" @endif><a href="{{ route($childMenu['name'])}}"><i class="fa fa-circle-o"></i> {{ $childMenu['display_name'] }} </a></li>
                     @endforeach
                 </ul>
             </li>

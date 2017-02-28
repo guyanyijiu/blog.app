@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Closure;
+use Illuminate\Support\Facades\Route;
 
 class Admin
 {
@@ -15,7 +16,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-//        echo "hello\n";
+        $routeName = Route::currentRouteName();
+        if($routeName != 'admin.index' && ! $request->user()->can($routeName)){
+            return redirect('/admin')->withErrors('无权限');
+        }
         return $next($request);
     }
 }
